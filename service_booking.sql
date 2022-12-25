@@ -10,11 +10,11 @@ create table member(
 create table service(
 	id int not null,
     owner_id int not null,
-    itemName varchar(50) not null,
+    item_name varchar(50) not null,
     description varchar(255) not null,
     availability boolean not null,
-    likeCount int not null,
-    isDelete boolean,
+    like_count int not null,
+    is_delete boolean,
     primary key(id),
     foreign key(owner_id) references member(id)
 );
@@ -39,7 +39,7 @@ create table comment(
 	id varchar(30) not null,
     item int not null,
     content varchar(255) not null,
-	authorId int not null,
+	author_id int not null,
     date datetime not null,
     primary key(id),
     foreign key(item) references service(id)
