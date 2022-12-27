@@ -63,16 +63,19 @@ router.post('/', auth, upload.array('pictures'), async (req, res) => {
         [id, member.id, itemName, description, true, 0, false]);
 
     //handle image paths
-    let sql = [];
-    let prepParams = [];
-    for (let i = 0; i < req.files.length; i++) {
-        let picPath = `/${req.files[i].destination}${req.files[i].filename}`;
-        sql.push("(?,?)");
-        prepParams.push(id);
-        prepParams.push(picPath);
-    };
-    let result = sql.join(",");
-    await pool.execute(`INSERT INTO picture (item, path) VALUES ${result}`, prepParams);
+    if(req.files.length>=1){
+        let sql = [];
+        let prepParams = [];
+        for (let i = 0; i < req.files.length; i++) {
+            let picPath = `/${req.files[i].destination}${req.files[i].filename}`;
+            sql.push("(?,?)");
+            prepParams.push(id);
+            prepParams.push(picPath);
+        };
+        let result = sql.join(",");
+        await pool.execute(`INSERT INTO picture (item, path) VALUES ${result}`, prepParams);
+    }
+
 
     return res.json({ success: true, message: 'Create a service successfully', item: { id, itemName } })
 })
