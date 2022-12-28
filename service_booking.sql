@@ -3,7 +3,7 @@ create database service_booking;
 create table member(
 	id int not null,
 	name varchar(60) not null,
-	password varchar(20) not null,
+	password varchar(255) not null,
     primary key(id)
 );
 
@@ -45,13 +45,9 @@ create table comment(
     foreign key(item) references service(id)
 );
 
-
--- INSERT INTO member (id, name, password) VALUES (111, "halo", "halo");
--- INSERT INTO member (id, name, password) VALUES (112, "happy", "happy");
--- INSERT INTO member (id, name, password) VALUES (113, "big", "big");
-
 create table token_whitelist(
 	jti varchar(255) not null,
+    iat datetime,
     primary key(jti)
 );
 
